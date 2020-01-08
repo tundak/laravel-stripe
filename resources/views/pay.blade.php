@@ -13,14 +13,14 @@
             <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
 
                 <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
-                    Dashboard <span style="float: right; color: green"><a href="{{ url('pay') }}">Pay Once</a></span>
+                    Pay One time
                 </div>
 
                 <div class="w-full p-6">
                     <p class="text-gray-700">You are logged in!</p>
 
                     <!-- If user is not subscribed to a plan, show them the payment form -->
-                    @if(!auth()->user()->subscribed('main'))
+                    @if(!auth()->user()->subscribed('onetime'))
 
                         @if(session('error_message'))
                             <div role="alert" class="mb-4">
@@ -35,11 +35,10 @@
 
                         <div class="w-2/3 rounded border border-gray-200 mx-auto mt-8 p-6 clearfix">
                             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                                <strong class="font-bold">You are not a subscribed to a plan</strong>
-                                <span class="block mt-2">To become a subscriber enter your billing info below:</span>
+                                <strong class="font-bold">Buy Product</strong>
                             </div>
                             
-                            <form id="signup-form" action="{{ route('billing') }}" method="post">
+                            <form id="signup-form" action="{{ route('payonce') }}" method="post">
                                 @csrf
                                 <div class="flex flex-wrap mb-6 mt-8 px-6">
                                         <label for="card-element" class="block text-gray-700 text-sm font-bold mb-2">
@@ -57,7 +56,7 @@
                                 </div>
                                 
                                 <button type="submit" id="card-button" class="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 float-right mr-6">
-                                    Subscribe
+                                    Pay
                                 </button>
                             </form>
                         </div>
@@ -78,7 +77,7 @@
 @endsection
 
 @section('javascript')
-    @if(!auth()->user()->subscribed('main'))
+    @if(!auth()->user()->subscribed('onetime'))
         <script src="https://js.stripe.com/v3/"></script>
 
         <script>
